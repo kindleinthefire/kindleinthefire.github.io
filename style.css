@@ -10,12 +10,12 @@
     }
 }
 
-@keyframes flash-text {
+@keyframes flash-text-random {
     0%, 100% {
-        color: red;
+        color: #8b0000; /* Dark Red */
     }
     50% {
-        color: blue;
+        color: #00008b; /* Dark Blue */
     }
 }
 
@@ -25,5 +25,5 @@
 }
 
 .circle span {
-    animation: flash-text 1s infinite;
+    animation: flash-text-random 1s infinite;
 }
