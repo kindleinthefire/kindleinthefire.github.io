@@ -52,7 +52,10 @@
             circle.style.backgroundColor = colors[getRandomInt(0, colors.length - 1)];
             circle.style.left = `${getRandomInt(0, window.innerWidth - size)}px`;
             circle.style.top = `${getRandomInt(0, window.innerHeight - size)}px`;
-            circle.textContent = getRandomLetters();
+            
+            const textSpan = document.createElement("span");
+            textSpan.textContent = getRandomLetters();
+            circle.appendChild(textSpan);
 
             document.body.appendChild(circle);
 
