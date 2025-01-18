@@ -1,90 +1,29 @@
-/* Global styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f7fb;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    flex-wrap: wrap; /* Allows wrapping for multiple circles */
-}
-
-/* Circle Styles */
-.circle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%; /* Makes the element circular */
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
-    font-size: 18px;
-    padding: 20px;
-    position: relative;
-    margin: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
-    /* Blue ring effect (thick border) */
-    border: 6px solid #007BFF; /* Bold blue border */
-}
-
-/* Hover effect */
-.circle:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Active effect */
-.circle:active {
-    transform: translateY(0);
-}
-
-/* Animation (Pulse) */
-.circle::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 50%;
-    border: 5px solid rgba(255, 255, 255, 0.4);
-    pointer-events: none;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
+@keyframes glow {
     0% {
-        transform: scale(1);
-        opacity: 0.4;
+        box-shadow: 0 0 5px #00ff00, 0 0 15px #00ff00, 0 0 30px #00ff00, 0 0 60px #00ff00;
     }
     50% {
-        transform: scale(1.1);
-        opacity: 0.6;
+        box-shadow: 0 0 10px #00ff00, 0 0 30px #00ff00, 0 0 60px #00ff00, 0 0 90px #00ff00;
     }
     100% {
-        transform: scale(1);
-        opacity: 0.4;
+        box-shadow: 0 0 5px #00ff00, 0 0 15px #00ff00, 0 0 30px #00ff00, 0 0 60px #00ff00;
     }
 }
 
-/* Responsive Design for smaller screens */
-@media (max-width: 768px) {
-    .circle {
-        font-size: 16px;
-        padding: 15px;
+@keyframes flash-text {
+    0%, 100% {
+        color: red;
+    }
+    50% {
+        color: blue;
     }
 }
 
+.circle {
+    border: 5px solid transparent;
+    animation: glow 2s infinite;
+}
+
+.circle span {
+    animation: flash-text 1s infinite;
+}
