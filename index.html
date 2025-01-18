@@ -3,28 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-    <!-- Link to the styles.css file -->
+    <title>Bouncing Circles</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Website</h1>
-    </header>
 
-    <nav>
-        <ul>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </nav>
+    <script>
+        const colors = ["#FF5733", "#33FF57", "#3357FF", "#F0FF33", "#FF33A1", "#A133FF", "#33FFF5", "#FF8C33", "#FF333F", "#33FFD2"];
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    <main>
-        <p>This is the homepage of my awesome website. Stay tuned for more content!</p>
-    </main>
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
 
-    <footer>
-        <p>&copy; 2025 My Website. All rights reserved.</p>
-    </footer>
+        function getRandomLetters() {
+            return Array(3)
+                .fill(null)
+                .map(() => letters[getRandomInt(0, letters.length - 1)])
+                .join("");
+        }
+
+        function createCircle() {
+            const circle = document.createElement("div");
+            const size = getRandomInt(50, 150);
+
+            circle.classList.add("circle");
+            circle.style.width = `${size}px`;
+            circle.style.height = `${size}px`;
+            circle.style.backgroundColor = colors[getRandomInt(0, colors.length - 1)];
+            circle.style.left = `${getRandomInt(0, window.innerWidth - size)}px`;
+            circle.style.top = `${getRandomInt(0, window.innerHeight - size)}px`;
+            circle.textContent = getRandomLetters();
+
+            document.body.appendChild(circle);
+
+            return { element: circle, size, x: getRandomInt(-2, 2), y: getRandomInt(-2, 2) };
+        }
+
+        const circles = Array(10).fill(null).map(createCircle);
+
+        function animateCircles() {
+            circles.forEach(circle => {
+                const rect = circle.element.getBoundingClientRect();
+
+                if (rect.left + circle.x < 0 || rect.right + circle.x > window.innerWidth) {
+                    circle.x *= -1;
+                }
+
+                if (rect.top + circle.y < 0 || rect.bottom + circle.y > window.innerHeight) {
+                    circle.y *= -1;
+                }
+
+                circle.element.style.left = `${rect.left + circle.x}px`;
+                circle.element.style.top = `${rect.top + circle.y}px`;
+            });
+
+            requestAnimationFrame(animateCircles);
+        }
+
+        animateCircles();
+    </script>
 </body>
 </html>
